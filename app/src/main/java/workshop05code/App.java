@@ -38,15 +38,15 @@ public class App {
 
         wordleDatabaseConnection.createNewDatabase("words.db");
         if (wordleDatabaseConnection.checkIfConnectionDefined()) {
-            System.out.println("Wordle created and connected.");
+            logger.info("Connection to SQLite has been established.");
         } else {
-            System.out.println("Not able to connect. Sorry!");
+            logger.severe("Not able to connect to SQLite.");
             return;
         }
         if (wordleDatabaseConnection.createWordleTables()) {
-            System.out.println("Wordle structures in place.");
+            logger.info("Wordle structures in place.");
         } else {
-            System.out.println("Not able to launch. Sorry!");
+            logger.severe("Not able to launch.");
             return;
         }
 
@@ -62,8 +62,7 @@ public class App {
             }
 
         } catch (IOException e) {
-            System.out.println("Not able to load . Sorry!");
-            System.out.println(e.getMessage());
+            logger.log(Level.SEVERE, "Not able to load.", e);
             return;
         }
 
@@ -92,7 +91,7 @@ public class App {
                 guess = scanner.nextLine();
             }
         } catch (NoSuchElementException | IllegalStateException e) {
-            e.printStackTrace();
+            logger.log(Level.SEVERE, "An error occurred.", e);
         }
 
     }
